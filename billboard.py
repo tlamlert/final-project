@@ -5,9 +5,12 @@ import csv
 
 from bs4 import BeautifulSoup
 
+with open('next_date', 'r') as f:
+    date = f.read()
+
 # scraper = cloudscraper.create_scraper()
 base_url = "https://www.billboard.com/charts/hot-100/"
-start_date = datetime.date.fromisoformat("2016-01-09")
+start_date = datetime.date.fromisoformat(date)
 sat = start_date + datetime.timedelta( (5-start_date.weekday()) % 7 )
 final_date = datetime.date.today()
 header = ["song", "artist", "weeks_on_chart"]
@@ -19,6 +22,8 @@ while sat < final_date:
     list = soup.find_all("div", class_="o-chart-results-list-row-container")
 
     if len(list) != 100:
+        with open('next_date', 'w') as f:
+            f.write(sat.strftime("%Y-%m-%d"))
         print(sat)
         break
 
