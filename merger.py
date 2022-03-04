@@ -1,5 +1,6 @@
 import os
 import csv
+import random
 
 path_to_directory = '/Users/tiger/cs1951a/final-project/billboard100'
 directory = os.fsencode(path_to_directory)
@@ -22,13 +23,22 @@ for file in os.listdir(directory):
             else:
                 dict[(song, artist)] = weeks_on_chart
 
-with open('billboard100/aggregate', 'w') as f:
+with open('billboard100/billboard_dataset_sorted', 'w') as f:
     header = ["song", "artist", "weeks_on_chart"]
     writer = csv.writer(f)
     writer.writerow(header)
 
-    for key in dict:
+    # keys = list(dict.keys())
+    # random.shuffle(keys)
+    # for key in dict:
+    #     (song, artist) = key
+    #     weeks_on_chart = dict[key]
+    #     row = [song, artist, weeks_on_chart]
+    #     writer.writerow(row)
+
+    sorted_dict = sorted(dict.items(), key=lambda item: -item[1])
+    for item in sorted_dict:
+        (key, weeks_on_chart) = item
         (song, artist) = key
-        weeks_on_chart = dict[key]
         row = [song, artist, weeks_on_chart]
         writer.writerow(row)
