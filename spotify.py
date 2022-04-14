@@ -125,7 +125,8 @@ def write_features(decade, offset):
 
 offsets = [5400, 2800, 0, 0, 0, 0]
 
-for decade, offset in zip(range(1980, 2030, 10), offsets):
+
+for decade, offset in zip(range(19800, 2030, 10), offsets[1:]):
     write_features(str(decade) + 's', offset)
 
 # write_features("2020s", 0)
