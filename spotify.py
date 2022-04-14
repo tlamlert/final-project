@@ -1,5 +1,3 @@
-import datetime
-
 import requests
 import csv
 import re
@@ -11,6 +9,7 @@ CLIENT_SECRET = "d97c4f6b80bd4c5cb5b3f7a483d7bbb4"
 
 AUTH_URL = "https://accounts.spotify.com/api/token"
 BASE_URL = 'https://api.spotify.com/v1/'
+
 
 def get_token():
     auth_response = requests.post(AUTH_URL, {
@@ -26,25 +25,26 @@ def get_token():
     access_token = auth_response_data['access_token']
     return access_token
 
+
 def clean(artists):
     delimitors = ' & |&|, |,| Featuring | X | / |/'
     return re.split(delimitors, artists)
 
 
-def get_features(song, artist, access_token):
+def get_features(song, artist_name, access_token):
     headers = {
         'Authorization': 'Bearer {token}'.format(token=access_token)
     }
     song = quote(song)
-    artist = quote(artist)
-    artist_1st = quote(clean(artist)[0])
+    artist = quote(artist_name)
+    artist_1st = quote(clean(artist_name)[0])
 
     def get_song(song_name, artist_name):
         # GET song ID
         url = BASE_URL + f"search?q=track:{song_name}%20artist:{artist_name}&type=track&market=ES&limit=1"
         # url = BASE_URL + f"search?q={song_name}%20{artist_name}&type=track&market=ES&limit=1"
-        r = requests.get(url, headers=headers)
-        return r.json()
+        response = requests.get(url, headers=headers)
+        return response.json()
 
     r1 = get_song(song, artist)
     r2 = get_song(song, artist_1st)
