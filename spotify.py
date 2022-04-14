@@ -27,7 +27,7 @@ def get_token():
 
 
 def clean(artists):
-    delimitors = ' & |&|, |,| Featuring | X | / |/'
+    delimitors = ' & |&|, |,| Featuring | X | / |/| Duet With | With '
     return re.split(delimitors, artists)
 
 
@@ -116,7 +116,14 @@ def write_features(decade, offset):
 #     write_features(date.strftime("%Y-%m-%d"))
 #     date = date + datetime.timedelta(7)
 
-# for decade in range(1970, 2030, 10):
-#     write_features(str(decade) + 's')
+# song = "Save Your Tears"
+# artists = "The Weeknd & Ariana Grande"
+# token = "BQAns5u2INRa7ITTtX70VpzchBYx-MunthZaLU-nz5UczUUyNG8Lh28axltwois04rBl-1LbyPTLyslovK4"
+# features = get_features(song, artists, token)
+# print(features)
+# print(clean(artists)[-1])
 
-write_features("2020s", 0)
+for decade in range(1970, 2030, 10):
+    write_features(str(decade) + 's', 0)
+
+# write_features("2020s", 0)
