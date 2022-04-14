@@ -1,7 +1,7 @@
 import requests
 import csv
 import re
-# from tqdm import tqdm
+from tqdm import tqdm
 from urllib.parse import quote
 
 CLIENT_ID = "e377c2362cad43548faf358203d63515"
@@ -83,8 +83,8 @@ def write_features(decade, offset):
             next(f)
         reader = csv.reader(f)
         i = 0
-        for row in reader:
-        # for row in tqdm(reader):
+        # for row in reader:
+        for row in tqdm(reader):
             if i % 100 == 0:
                 access_token = get_token()
                 print(str(i) + ": " + access_token)
@@ -123,7 +123,9 @@ def write_features(decade, offset):
 # print(features)
 # print(clean(artists)[-1])
 
-for decade in range(1970, 2030, 10):
-    write_features(str(decade) + 's', 0)
+offsets = [400, 0, 0, 0, 0, 0]
+
+for decade, offset in range(1970, 2030, 10), offsets:
+    write_features(str(decade) + 's', offset)
 
 # write_features("2020s", 0)
