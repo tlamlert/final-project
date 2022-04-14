@@ -3,7 +3,7 @@ import datetime
 import requests
 import csv
 import re
-from tqdm import tqdm
+# from tqdm import tqdm
 from urllib.parse import quote
 
 CLIENT_ID = "e377c2362cad43548faf358203d63515"
@@ -79,11 +79,12 @@ def write_features(decade, offset):
     with open(filename, 'r') as f:
         next(f)  # skip the header
         # skip to offset
-        for _ in tqdm(range(offset)):
+        for _ in range(offset):
             next(f)
         reader = csv.reader(f)
         i = 0
-        for row in tqdm(reader):
+        for row in reader:
+        # for row in tqdm(reader):
             if i % 100 == 0:
                 access_token = get_token()
                 print(access_token)
