@@ -65,18 +65,22 @@ def get_features(song, artist, access_token):
     return list(r.values())
 
 
-def write_features(decade):
+def write_features(decade, offset):
     table_headers = ["song", "artist", "weeks_on_chart", "1st_appear"]
     spotify_features = ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'type', 'id', 'uri', 'track_href', 'analysis_url', 'duration_ms', 'time_signature']
+    placeholder = [""] * len(spotify_features)
     header = table_headers + spotify_features
-
     filename = 'billboard100/aggregate-by-decade/' + decade
 
-    table = [header]
-    placeholder = [""] * len(spotify_features)
+    table = []
+    if offset == 0:
+        table.append(header)
 
     with open(filename, 'r') as f:
         next(f)  # skip the header
+        # skip to offset
+        for _ in tqdm(range(offset)):
+            next(f)
         reader = csv.reader(f)
         i = 0
         for row in tqdm(reader):
@@ -111,5 +115,7 @@ def write_features(decade):
 #     write_features(date.strftime("%Y-%m-%d"))
 #     date = date + datetime.timedelta(7)
 
-for decade in range(1970, 2030, 10):
-    write_features(str(decade) + 's')
+# for decade in range(1970, 2030, 10):
+#     write_features(str(decade) + 's')
+
+write_features("1970s", 1200)
