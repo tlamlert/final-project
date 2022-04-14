@@ -2,6 +2,7 @@
 import requests
 import datetime
 import csv
+import time
 
 from bs4 import BeautifulSoup
 
@@ -12,7 +13,8 @@ with open('next_date', 'r') as f:
 base_url = "https://www.billboard.com/charts/hot-100/"
 start_date = datetime.date.fromisoformat(date)
 sat = start_date + datetime.timedelta( (5-start_date.weekday()) % 7 )
-final_date = datetime.date.today()
+# final_date = datetime.date.today()
+final_date = datetime.date.fromisoformat("1994-01-30")
 header = ["song", "artist", "weeks_on_chart"]
 
 while sat < final_date:
@@ -21,13 +23,17 @@ while sat < final_date:
     soup = BeautifulSoup(page.content, "html.parser")
     list = soup.find_all("div", class_="o-chart-results-list-row-container")
 
-    if len(list) != 100:
+    if len(list) < 99:
         with open('next_date', 'w') as f:
             f.write(sat.strftime("%Y-%m-%d"))
         print(sat)
-        break
+        # break
+        print(len(list))
+        print("waiting...")
+        time.sleep(30)
+        continue
 
-    with open('billboard100/' + sat.strftime("%Y-%m-%d"), 'w') as f:
+    with open('billboard100/daily-charts/' + sat.strftime("%Y-%m-%d"), 'w') as f:
         print("writing to " + f.name + "...")
         writer = csv.writer(f)
         writer.writerow(header)

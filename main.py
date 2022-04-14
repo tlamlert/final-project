@@ -19,11 +19,11 @@
 # # print(result)
 # print(result["tracks"]["items"][0]["uri"][14:])
 
-import datetime
-
-start_date = datetime.date.fromisoformat("2015-01-01")
-next_sat = start_date + datetime.timedelta( (5-start_date.weekday()) % 7 )
-print(next_sat.strftime("%Y-%m-%d"))
+# import datetime
+#
+# start_date = datetime.date.fromisoformat("2015-01-01")
+# next_sat = start_date + datetime.timedelta( (5-start_date.weekday()) % 7 )
+# print(next_sat.strftime("%Y-%m-%d"))
 
 # date = datetime.date.fromisoformat("2022-03-01")
 # # print(date)
@@ -33,3 +33,15 @@ print(next_sat.strftime("%Y-%m-%d"))
 # while (date <= datetime.date.today()):
 #     print(date)
 #     date = date + datetime.timedelta(1)
+#
+# import re
+#
+# string = ['JNR CHOI & Sam Tompkins',
+# 'Dierks Bentley, Breland & HARDY',
+# 'Kevin Gates Featuring Juicy J',
+# 'Machine Gun Kelly X blackbear']
+#
+# # for each in string:
+# def clean():
+#     delimitors = ' & |, | Featuring | X '
+#     return re.split(delimitors, each)
