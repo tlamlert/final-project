@@ -87,7 +87,7 @@ def write_features(decade, offset):
         # for row in tqdm(reader):
             if i % 100 == 0:
                 access_token = get_token()
-                print(access_token)
+                print(str(i) + access_token)
 
                 with open('billboard100/song-features/' + decade + '_features', 'a') as f:
                     writer = csv.writer(f)
