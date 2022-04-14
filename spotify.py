@@ -118,4 +118,4 @@ def write_features(decade, offset):
 # for decade in range(1970, 2030, 10):
 #     write_features(str(decade) + 's')
 
-write_features("1970s", 1200)
+write_features("2020s", 0)
