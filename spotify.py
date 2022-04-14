@@ -123,9 +123,9 @@ def write_features(decade, offset):
 # print(features)
 # print(clean(artists)[-1])
 
-offsets = [400, 0, 0, 0, 0, 0]
+offsets = [5400, 2800, 0, 0, 0, 0]
 
-for decade, offset in zip(range(1970, 2030, 10), offsets):
+for decade, offset in zip(range(1980, 2030, 10), offsets):
     write_features(str(decade) + 's', offset)
 
 # write_features("2020s", 0)
