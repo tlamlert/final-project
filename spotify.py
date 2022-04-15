@@ -77,6 +77,12 @@ def write_features(decade, offset):
     if offset == 0:
         table.append(header)
 
+    def append_to_file(file, data):
+        with open(file, 'a') as f:
+            writer = csv.writer(f)
+            for datapoint in data:
+                writer.writerow(datapoint)
+
     with open(filename, 'r') as f:
         next(f)  # skip the header
         # skip to offset
@@ -89,12 +95,9 @@ def write_features(decade, offset):
             if i % 100 == 0:
                 access_token = get_token()
                 print(str(i) + ": " + access_token)
+                append_to_file('billboard100/song-features/' + decade + '_features', table)
+                table = []
 
-                with open('billboard100/song-features/' + decade + '_features', 'a') as f:
-                    writer = csv.writer(f)
-                    for datapoint in table:
-                        writer.writerow(datapoint)
-                    table = []
             song = row[0]
             artist = row[1]
             features = get_features(song, artist, access_token)
@@ -103,10 +106,7 @@ def write_features(decade, offset):
             table.append(row + features)
             i += 1
 
-    # with open('billboard100/songs-features/' + decade + '_features', 'w') as f:
-    #     writer = csv.writer(f)
-    #     for row in table:
-    #         writer.writerow(row)
+    append_to_file('billboard100/song-features/' + decade + '_features', table)
 
 
 # date = datetime.date.fromisoformat('1970-01-03')
@@ -124,9 +124,9 @@ def write_features(decade, offset):
 # print(features)
 # print(clean(artists)[-1])
 
-offsets = [5400, 4200, 3500, 3500, 4400, 0]
+offsets = [5400, 4200, 3500, 3500, 4500, 1600]
 
-start = 4
+start = 0
 for decade, offset in zip(range(1970, 2030, 10)[start:], offsets[start:]):
     write_features(str(decade) + 's', offset)
 
