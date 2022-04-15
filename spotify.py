@@ -4,8 +4,8 @@ import re
 from tqdm import tqdm
 from urllib.parse import quote
 
-CLIENT_ID = "e377c2362cad43548faf358203d63515"
-CLIENT_SECRET = "d97c4f6b80bd4c5cb5b3f7a483d7bbb4"
+CLIENT_ID = "b4ce31d839c848e69665411db2425fed"
+CLIENT_SECRET = "c35022a7e155415bb35dd6331d44d55d"
 
 AUTH_URL = "https://accounts.spotify.com/api/token"
 BASE_URL = 'https://api.spotify.com/v1/'
@@ -44,7 +44,7 @@ def get_features(song, artist_name, access_token):
         url = BASE_URL + f"search?q=track:{song_name}%20artist:{artist_name}&type=track&market=ES&limit=1"
         # url = BASE_URL + f"search?q={song_name}%20{artist_name}&type=track&market=ES&limit=1"
         response = requests.get(url, headers=headers)
-        # print(response.headers)
+        print(response.headers)
         return response.json()
 
     r1 = get_song(song, artist)
