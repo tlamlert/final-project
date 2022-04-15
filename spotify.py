@@ -124,9 +124,9 @@ def write_features(decade, offset):
 # print(features)
 # print(clean(artists)[-1])
 
-offsets = [5400, 4200, 3500, 300, 0, 0]
+offsets = [5400, 4200, 3500, 3500, 4400, 0]
 
-start = 3
+start = 4
 for decade, offset in zip(range(1970, 2030, 10)[start:], offsets[start:]):
     write_features(str(decade) + 's', offset)
 
