@@ -44,6 +44,7 @@ def get_features(song, artist_name, access_token):
         url = BASE_URL + f"search?q=track:{song_name}%20artist:{artist_name}&type=track&market=ES&limit=1"
         # url = BASE_URL + f"search?q={song_name}%20{artist_name}&type=track&market=ES&limit=1"
         response = requests.get(url, headers=headers)
+        # print(response.headers)
         return response.json()
 
     r1 = get_song(song, artist)
@@ -123,10 +124,10 @@ def write_features(decade, offset):
 # print(features)
 # print(clean(artists)[-1])
 
-offsets = [5400, 3300, 0, 0, 0, 0]
+offsets = [5400, 4200, 3500, 300, 0, 0]
 
-
-for decade, offset in zip(range(1980, 2030, 10), offsets[1:]):
+start = 3
+for decade, offset in zip(range(1970, 2030, 10)[start:], offsets[start:]):
     write_features(str(decade) + 's', offset)
 
 # write_features("2020s", 0)
